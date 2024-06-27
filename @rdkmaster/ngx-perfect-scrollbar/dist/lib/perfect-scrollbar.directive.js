@@ -2,7 +2,7 @@
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-import PerfectScrollbar from 'perfect-scrollbar';
+import PerfectScrollbar from '@rdkmaster/perfect-scrollbar';
 import ResizeObserver from '@rdkmaster/resize-observer-polyfill';
 import { Subject, fromEvent } from 'rxjs';
 import { auditTime, takeUntil } from 'rxjs/operators';

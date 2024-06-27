@@ -2,7 +2,7 @@ import { fromEvent, Subject, merge } from 'rxjs';
 import { auditTime, takeUntil, distinctUntilChanged, mapTo } from 'rxjs/operators';
 import { InjectionToken, Directive, NgZone, KeyValueDiffers, ElementRef, Inject, PLATFORM_ID, Optional, Input, Output, EventEmitter, Component, ViewEncapsulation, ChangeDetectorRef, HostBinding, ViewChild, NgModule } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
-import PerfectScrollbar from 'perfect-scrollbar';
+import PerfectScrollbar from '@rdkmaster/perfect-scrollbar';
 import ResizeObserver from '@rdkmaster/resize-observer-polyfill';
 
 /**
