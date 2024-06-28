@@ -13,14 +13,13 @@ for package in $packages; do
     dirName=@rdkmaster/$(basename "$package")
     echo "Publishing package: $dirName"
     npm publish --registry https://registry.npmjs.org/ --loglevel warn --access public $dirName/
+    echo ""
+    echo "----------------------------------------------------------------------------------------"
     if [ $? -eq 0 ]; then
         echo "Package $dirName published successfully"
     else
-        echo ""
-        echo ""
         echo "Error: Failed to publish package $dirName"
-        echo ""
-        echo ""
     fi
+    echo "----------------------------------------------------------------------------------------"
 done
 

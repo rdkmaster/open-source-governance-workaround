@@ -1,4 +1,4 @@
-import PerfectScrollbar from 'perfect-scrollbar';
+import PerfectScrollbar from '@rdkmaster/perfect-scrollbar';
 import { NgZone, ElementRef, OnInit, DoCheck, OnChanges, OnDestroy, EventEmitter, SimpleChanges, KeyValueDiffers } from '@angular/core';
 import { Geometry, Position } from './perfect-scrollbar.interfaces';
 import { PerfectScrollbarConfigInterface } from './perfect-scrollbar.interfaces';

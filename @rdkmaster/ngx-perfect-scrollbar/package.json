@@ -3,7 +3,7 @@
   "description": "Angular wrapper library for Perfect Scrollbar",
   "bugs": "https://github.com/zefoy/ngx-perfect-scrollbar/issues",
   "license": "MIT",
-  "version": "8.0.0-3",
+  "version": "8.0.0-7",
   "main": "./bundles/ngx-perfect-scrollbar.umd.js",
   "module": "./dist/ngx-perfect-scrollbar.es5.js",
   "typings": "./dist/ngx-perfect-scrollbar.d.ts",
@@ -18,9 +18,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/zefoy/ngx-perfect-scrollbar.git"
-  },
-  "dependencies": {
-    "perfect-scrollbar": "^1.4.0"
   },
   "devDependencies": {
     "@angular/cli": "^8.0.0",

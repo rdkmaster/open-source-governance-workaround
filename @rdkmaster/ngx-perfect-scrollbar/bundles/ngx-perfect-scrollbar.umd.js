@@ -1,5 +1,5 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs'), require('rxjs/operators'), require('@angular/core'), require('@angular/common'), require('perfect-scrollbar')) :
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs'), require('rxjs/operators'), require('@angular/core'), require('@angular/common'), require('@rdkmaster/perfect-scrollbar')) :
     typeof define === 'function' && define.amd ? define(['exports', 'rxjs', 'rxjs/operators', '@angular/core', '@angular/common', 'perfect-scrollbar'], factory) :
     (global = global || self, factory((global.zef = global.zef || {}, global.zef.ngxPerfectScrollbar = {}), global.Rx, global.Rx.Observable.prototype, global.ng.core, global.ng.common, global.PerfectScrollbar));
 }(this, function (exports, rxjs, operators, core, common, PerfectScrollbar) { 'use strict';
