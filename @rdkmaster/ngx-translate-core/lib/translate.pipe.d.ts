@@ -1,20 +1,25 @@
-import { ChangeDetectorRef, EventEmitter, OnDestroy, PipeTransform } from '@angular/core';
-import { DefaultLangChangeEvent, LangChangeEvent, TranslateService, TranslationChangeEvent } from './translate.service';
+import { ChangeDetectorRef, OnDestroy, PipeTransform } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { InterpolatableTranslationObject, TranslateService, Translation, InterpolationParameters } from "./translate.service";
+import * as i0 from "@angular/core";
 export declare class TranslatePipe implements PipeTransform, OnDestroy {
     private translate;
     private _ref;
-    value: string;
-    lastKey: string;
-    lastParams: any[];
-    onTranslationChange: EventEmitter<TranslationChangeEvent>;
-    onLangChange: EventEmitter<LangChangeEvent>;
-    onDefaultLangChange: EventEmitter<DefaultLangChangeEvent>;
+    value: Translation;
+    lastKey: string | null;
+    lastParams: InterpolationParameters[];
+    onTranslationChange: Subscription | undefined;
+    onLangChange: Subscription | undefined;
+    onDefaultLangChange: Subscription | undefined;
     constructor(translate: TranslateService, _ref: ChangeDetectorRef);
-    updateValue(key: string, interpolateParams?: Object, translations?: any): void;
+    updateValue(key: string, interpolateParams?: object, translations?: InterpolatableTranslationObject): void;
     transform(query: string, ...args: any[]): any;
     /**
      * Clean any existing subscription to change events
      */
     private _dispose;
     ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<TranslatePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<TranslatePipe, "translate", true>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<TranslatePipe>;
 }
