@@ -10,29 +10,20 @@ This documentation is for the latest 5/6.x.x version which requires Angular 5 or
 
 [Example application](https://zefoy.github.io/ngx-color-picker/)
  |
-[StackBlitz example](https://stackblitz.com/github/zefoy/ngx-color-picker/tree/master/example)
+[StackBlitz example](https://stackblitz.com/github/zefoy/ngx-color-picker/tree/master)
 
 ### Building the library
 
 ```bash
 npm install
-npm start
+npm run build
 ```
 
 ### Running the example
 
 ```bash
-cd example
 npm install
-npm start
-```
-
-### Library development
-
-```bash
-npm link
-cd example
-npm link ngx-color-picker
+npm run start
 ```
 
 ### Installing and usage
@@ -79,7 +70,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
 
 [cpFallbackColor]            // Used when the color is not well-formed or is undefined ('#000').
 
-[cpPosition]                 // Dialog position: 'right', 'left', 'top', 'bottom' ('right').
+[cpPosition]                 // Dialog position: 'auto', 'top', 'bottom', 'left', 'right',
+                             //  'top-left', 'top-right', 'bottom-left', 'bottom-right' ('auto').
 [cpPositionOffset]           // Dialog offset percentage relative to the directive element (0%).
 [cpPositionRelativeToArrow]  // Dialog position is calculated relative to dialog arrow (false).
 
@@ -111,6 +103,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
 
 [cpRemoveColorButtonClass]   // Additional class for customizing the Remove Color button ('').
 
+[cpPresetColorsClass]        // Additional class for customizing the Preset Colors container ('').
+
 [cpMaxPresetColorsLength]    // Use this option to set the max colors allowed in presets (null).
 
 [cpPresetEmptyMessage]       // Message for empty colors if any provided used ('No colors added').
@@ -129,12 +123,14 @@ import { ColorPickerModule } from 'ngx-color-picker';
 (cpToggleChange)             // Status of the dialog, send when dialog is opened / closed (open: boolean).
 
 (cpInputChange)              // Input name and its value, send when user changes color through inputs
-                             //   ({input: string, value: number | string, color: string})
+                             // ({input: string, value: number | string, color: string})
 
 (cpSliderChange)             // Slider name and its value, send when user changes color through slider
-(cpSliderDragEnd)            // Slider name and current color, send when slider dragging ends (mouseup,touchend)
-(cpSliderDragStart)          // Slider name and current color, send when slider dragging starts (mousedown,touchstart)
                              //   ({slider: string, value: number | string, color: string})
+(cpSliderDragStart)          // Slider name and current color, send when slider dragging starts (mousedown,touchstart)
+                             //   ({slider: string, color: string})
+(cpSliderDragEnd)            // Slider name and current color, send when slider dragging ends (mouseup,touchend)
+                             //   ({slider: string, color: string})
 
 (cpCmykColorChange)          // Outputs the color as CMYK string if CMYK is enabled (value: string).
 

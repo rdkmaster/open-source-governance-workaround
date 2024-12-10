@@ -1,5 +1,5 @@
 import { EventEmitter } from "@angular/core";
-import { DefaultLangChangeEvent, LangChangeEvent, TranslationChangeEvent } from "./translate.service";
+import { InterpolatableTranslationObject, DefaultLangChangeEvent, LangChangeEvent, TranslationChangeEvent } from "./translate.service";
 export declare class TranslateStore {
     /**
      * The default lang to fallback when translations are missing on the current lang
@@ -12,11 +12,11 @@ export declare class TranslateStore {
     /**
      * a list of translations per lang
      */
-    translations: any;
+    translations: Record<string, InterpolatableTranslationObject>;
     /**
      * an array of langs
      */
-    langs: Array<string>;
+    langs: string[];
     /**
      * An EventEmitter to listen to translation change events
      * onTranslationChange.subscribe((params: TranslationChangeEvent) => {

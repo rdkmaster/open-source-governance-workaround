@@ -1,3 +1,6 @@
+import { InterpolationParameters } from "./translate.service";
+import * as i0 from "@angular/core";
+export type InterpolateFunction = (params?: InterpolationParameters) => string;
 export declare abstract class TranslateParser {
     /**
      * Interpolates a string to replace parameters
@@ -5,19 +8,13 @@ export declare abstract class TranslateParser {
      * @param expr
      * @param params
      */
-    abstract interpolate(expr: string | Function, params?: any): string;
-    /**
-     * Gets a value from an object by composed key
-     * parser.getValue({ key1: { keyA: 'valueI' }}, 'key1.keyA') ==> 'valueI'
-     * @param target
-     * @param key
-     */
-    abstract getValue(target: any, key: string): any;
+    abstract interpolate(expr: InterpolateFunction | string, params?: InterpolationParameters): string | undefined;
 }
 export declare class TranslateDefaultParser extends TranslateParser {
     templateMatcher: RegExp;
-    interpolate(expr: string | Function, params?: any): string;
-    getValue(target: any, key: string): any;
+    interpolate(expr: InterpolateFunction | string, params?: InterpolationParameters): string | undefined;
     private interpolateFunction;
     private interpolateString;
+    static ɵfac: i0.ɵɵFactoryDeclaration<TranslateDefaultParser, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<TranslateDefaultParser>;
 }

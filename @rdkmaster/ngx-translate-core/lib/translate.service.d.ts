@@ -3,21 +3,34 @@ import { Observable } from "rxjs";
 import { MissingTranslationHandler } from "./missing-translation-handler";
 import { TranslateCompiler } from "./translate.compiler";
 import { TranslateLoader } from "./translate.loader";
-import { TranslateParser } from "./translate.parser";
+import { InterpolateFunction, TranslateParser } from "./translate.parser";
 import { TranslateStore } from "./translate.store";
-export declare const USE_STORE: InjectionToken<string>;
+import * as i0 from "@angular/core";
+export declare const ISOALTE_TRANSLATE_SERVICE: InjectionToken<string>;
 export declare const USE_DEFAULT_LANG: InjectionToken<string>;
+export declare const DEFAULT_LANGUAGE: InjectionToken<string>;
+export declare const USE_EXTEND: InjectionToken<string>;
+export type InterpolationParameters = Record<string, any>;
+export type Translation = string | Translation[] | TranslationObject | any;
+export interface TranslationObject {
+    [key: string]: Translation;
+}
+export type InterpolatableTranslation = string | InterpolatableTranslation[] | InterpolateFunction | InterpolatableTranslationObject | any;
+export interface InterpolatableTranslationObject {
+    [key: string]: InterpolatableTranslation;
+}
+export type Language = string;
 export interface TranslationChangeEvent {
-    translations: any;
+    translations: InterpolatableTranslationObject;
     lang: string;
 }
 export interface LangChangeEvent {
     lang: string;
-    translations: any;
+    translations: InterpolatableTranslationObject;
 }
 export interface DefaultLangChangeEvent {
     lang: string;
-    translations: any;
+    translations: InterpolatableTranslationObject;
 }
 export declare class TranslateService {
     store: TranslateStore;
@@ -27,6 +40,7 @@ export declare class TranslateService {
     missingTranslationHandler: MissingTranslationHandler;
     private useDefaultLang;
     private isolate;
+    private extend;
     private loadingTranslations;
     private pending;
     private _onTranslationChange;
@@ -37,43 +51,48 @@ export declare class TranslateService {
     private _langs;
     private _translations;
     private _translationRequests;
+    private lastUseLanguage;
     /**
      * An EventEmitter to listen to translation change events
      * onTranslationChange.subscribe((params: TranslationChangeEvent) => {
        *     // do something
        * });
      */
-    readonly onTranslationChange: EventEmitter<TranslationChangeEvent>;
+    get onTranslationChange(): EventEmitter<TranslationChangeEvent>;
     /**
      * An EventEmitter to listen to lang change events
      * onLangChange.subscribe((params: LangChangeEvent) => {
        *     // do something
        * });
      */
-    readonly onLangChange: EventEmitter<LangChangeEvent>;
+    get onLangChange(): EventEmitter<LangChangeEvent>;
     /**
      * An EventEmitter to listen to default lang change events
      * onDefaultLangChange.subscribe((params: DefaultLangChangeEvent) => {
        *     // do something
        * });
      */
-    readonly onDefaultLangChange: EventEmitter<DefaultLangChangeEvent>;
+    get onDefaultLangChange(): EventEmitter<DefaultLangChangeEvent>;
     /**
      * The default lang to fallback when translations are missing on the current lang
      */
-    defaultLang: string;
+    get defaultLang(): string;
+    set defaultLang(defaultLang: string);
     /**
      * The lang currently used
      */
-    currentLang: string;
+    get currentLang(): string;
+    set currentLang(currentLang: string);
     /**
      * an array of langs
      */
-    langs: string[];
+    get langs(): string[];
+    set langs(langs: string[]);
     /**
      * a list of translations per lang
      */
-    translations: any;
+    get translations(): Record<string, InterpolatableTranslationObject>;
+    set translations(translations: Record<string, InterpolatableTranslationObject>);
     /**
      *
      * @param store an instance of the store (that is supposed to be unique)
@@ -81,10 +100,12 @@ export declare class TranslateService {
      * @param compiler An instance of the compiler currently used
      * @param parser An instance of the parser currently used
      * @param missingTranslationHandler A handler for missing translations.
-     * @param isolate whether this service should use the store or not
      * @param useDefaultLang whether we should use default language translation when current language translation is missing.
+     * @param isolate whether this service should use the store or not
+     * @param extend To make a child module extend (and use) translations from parent modules.
+     * @param defaultLanguage Set the default language using configuration
      */
-    constructor(store: TranslateStore, currentLoader: TranslateLoader, compiler: TranslateCompiler, parser: TranslateParser, missingTranslationHandler: MissingTranslationHandler, useDefaultLang?: boolean, isolate?: boolean);
+    constructor(store: TranslateStore, currentLoader: TranslateLoader, compiler: TranslateCompiler, parser: TranslateParser, missingTranslationHandler: MissingTranslationHandler, useDefaultLang: boolean, isolate: boolean, extend: boolean, defaultLanguage: string);
     /**
      * Sets the default language to use as a fallback
      */
@@ -96,7 +117,11 @@ export declare class TranslateService {
     /**
      * Changes the lang currently used
      */
-    use(lang: string): Observable<any>;
+    use(lang: string): Observable<InterpolatableTranslationObject>;
+    /**
+     * Changes the current lang
+     */
+    private changeLang;
     /**
      * Retrieves the given translations
      */
@@ -104,53 +129,64 @@ export declare class TranslateService {
     /**
      * Gets an object of translations for a given language with the current loader
      * and passes it through the compiler
+     *
+     * @deprecated This function is meant for internal use. There should
+     * be no reason to use outside this service. You can plug into this
+     * functionality by using a customer TranslateLoader or TranslateCompiler.
+     * To load a new language use setDefaultLang() and/or use()
      */
-    getTranslation(lang: string): Observable<any>;
+    getTranslation(lang: string): Observable<InterpolatableTranslationObject>;
+    private loadAndCompileTranslations;
     /**
      * Manually sets an object of translations for a given language
      * after passing it through the compiler
      */
-    setTranslation(lang: string, translations: Object, shouldMerge?: boolean): void;
+    setTranslation(lang: string, translations: InterpolatableTranslationObject, shouldMerge?: boolean): void;
     /**
      * Returns an array of currently available langs
      */
-    getLangs(): Array<string>;
+    getLangs(): string[];
     /**
-     * Add available langs
+     * Add available languages
      */
-    addLangs(langs: Array<string>): void;
+    addLangs(langs: string[]): void;
     /**
-     * Update the list of available langs
+     * Update the list of available languages
      */
     private updateLangs;
+    private getParsedResultForKey;
+    private runInterpolation;
     /**
      * Returns the parsed result of the translations
      */
-    getParsedResult(translations: any, key: any, interpolateParams?: Object): any;
+    getParsedResult(translations: InterpolatableTranslation, key: string | string[], interpolateParams?: InterpolationParameters): Translation | TranslationObject | Observable<Translation | TranslationObject>;
     /**
      * Gets the translated value of a key (or an array of keys)
      * @returns the translated key, or an object of translated keys
      */
-    get(key: string | Array<string>, interpolateParams?: Object): Observable<string | any>;
+    get(key: string | string[], interpolateParams?: InterpolationParameters): Observable<Translation | TranslationObject>;
+    /**
+     * Returns a stream of translated values of a key (or an array of keys) which updates
+     * whenever the translation changes.
+     * @returns A stream of the translated key, or an object of translated keys
+     */
+    getStreamOnTranslationChange(key: string | string[], interpolateParams?: InterpolationParameters): Observable<Translation | TranslationObject>;
     /**
      * Returns a stream of translated values of a key (or an array of keys) which updates
      * whenever the language changes.
      * @returns A stream of the translated key, or an object of translated keys
      */
-    stream(key: string | Array<string>, interpolateParams?: Object): Observable<string | any>;
+    stream(key: string | string[], interpolateParams?: InterpolationParameters): Observable<Translation | TranslationObject>;
     /**
      * Returns a translation instantly from the internal state of loaded translation.
-     * All rules regarding the current language, the preferred language of even fallback languages will be used except any promise handling.
+     * All rules regarding the current language, the preferred language of even fallback languages
+     * will be used except any promise handling.
      */
-    instant(key: string | Array<string>, interpolateParams?: Object): string | any;
+    instant(key: string | string[], interpolateParams?: InterpolationParameters): Translation | TranslationObject;
     /**
      * Sets the translated value of a key, after compiling it
      */
-    set(key: string, value: string, lang?: string): void;
-    /**
-     * Changes the current lang
-     */
-    private changeLang;
+    set(key: string, translation: Translation, lang?: string): void;
     /**
      * Changes the default lang
      */
@@ -158,7 +194,7 @@ export declare class TranslateService {
     /**
      * Allows to reload the lang file from the file
      */
-    reloadLang(lang: string): Observable<any>;
+    reloadLang(lang: string): Observable<InterpolatableTranslationObject>;
     /**
      * Deletes inner translation
      */
@@ -166,9 +202,11 @@ export declare class TranslateService {
     /**
      * Returns the language code name from the browser, e.g. "de"
      */
-    getBrowserLang(): string;
+    getBrowserLang(): string | undefined;
     /**
      * Returns the culture language code name from the browser, e.g. "de-DE"
      */
-    getBrowserCultureLang(): string;
+    getBrowserCultureLang(): string | undefined;
+    static ɵfac: i0.ɵɵFactoryDeclaration<TranslateService, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<TranslateService>;
 }

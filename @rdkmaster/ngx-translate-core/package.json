@@ -1,45 +1,35 @@
 {
   "name": "@rdkmaster/ngx-translate-core",
-  "description": "The internationalization (i18n) library for Angular",
-  "author": "Olivier Combe",
+  "version": "16.0.3-1",
+  "description": "Translation library (i18n) for Angular",
   "keywords": [
+    "@ngx-translate",
+    "ngx-translate",
     "angular",
-    "angular 2",
     "i18n",
-    "translate",
-    "ngx-translate"
+    "translation"
   ],
+  "author": "Andreas Löw / CodeAndWeb GmbH, Olivier Combe",
   "license": "MIT",
-  "homepage": "https://github.com/ngx-translate/core",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ngx-translate/core.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ngx-translate/core/issues"
-  },
   "peerDependencies": {
-    "@angular/core": ">=7.0.0",
-    "rxjs": ">=6.3.0"
+    "@angular/common": ">=16",
+    "@angular/core": ">=16"
   },
-  "devDependencies": {
-    "semantic-release": "8.2.3"
-  },
-  "scripts": {
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
-  },
-  "main": "bundles/ngx-translate-core.umd.js",
-  "module": "fesm5/ngx-translate-core.js",
-  "es2015": "fesm2015/ngx-translate-core.js",
-  "esm5": "esm5/ngx-translate-core.js",
-  "esm2015": "esm2015/ngx-translate-core.js",
-  "fesm5": "fesm5/ngx-translate-core.js",
-  "fesm2015": "fesm2015/ngx-translate-core.js",
-  "typings": "ngx-translate-core.d.ts",
-  "metadata": "ngx-translate-core.metadata.json",
   "sideEffects": false,
-  "dependencies": {
-    "tslib": "^1.9.0"
+  "module": "fesm2022/ngx-translate-core.mjs",
+  "typings": "index.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./index.d.ts",
+      "esm2022": "./esm2022/ngx-translate-core.mjs",
+      "esm": "./esm2022/ngx-translate-core.mjs",
+      "default": "./fesm2022/ngx-translate-core.mjs"
+    }
   },
-  "version": "11.0.1-1"
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
 }
