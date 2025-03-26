@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import * as DOM from '../lib/dom';
 import updateGeometry from '../update-geometry';
 import { isEditable } from '../lib/util';

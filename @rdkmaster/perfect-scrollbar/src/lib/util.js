@@ -27,17 +27,19 @@ export function outerWidth(element) {
 
 export const env = {
   isWebKit:
-    typeof document !== 'undefined' &&
-    'WebkitAppearance' in document.documentElement.style,
+    typeof document !== 'undefined' && 'WebkitAppearance' in document.documentElement.style,
+
   supportsTouch:
     typeof window !== 'undefined' &&
     ('ontouchstart' in window ||
-      ('maxTouchPoints' in window.navigator &&
-        window.navigator.maxTouchPoints > 0) ||
+      (window.navigator && 'maxTouchPoints' in window.navigator && window.navigator.maxTouchPoints > 0) ||
       (window.DocumentTouch && document instanceof window.DocumentTouch)),
+
   supportsIePointer:
-    typeof navigator !== 'undefined' && navigator.msMaxTouchPoints,
+    typeof window !== 'undefined' && window.navigator &&
+      'msMaxTouchPoints' in window.navigator && window.navigator.msMaxTouchPoints > 0,
+
   isChrome:
-    typeof navigator !== 'undefined' &&
-    /Chrome/i.test(navigator && navigator.userAgent),
+    typeof window !== 'undefined' && window.navigator && /Chrome/i.test(window.navigator.userAgent),
 };
+

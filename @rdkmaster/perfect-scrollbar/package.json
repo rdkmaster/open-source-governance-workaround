@@ -1,7 +1,7 @@
 {
   "name": "@rdkmaster/perfect-scrollbar",
-  "version": "1.5.5-1",
-  "description": "Minimalistic but perfect custom scrollbar plugin",
+  "version": "1.5.6-1",
+  "description": "基于原生1.5.6修改的滚动条无限向下滚动的bug",
   "author": "Hyunje Jun <me@noraesae.net>",
   "keywords": [
     "frontend",

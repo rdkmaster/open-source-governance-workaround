@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import * as CSS from './lib/css';
 import * as DOM from './lib/dom';
 import cls from './lib/class-names';

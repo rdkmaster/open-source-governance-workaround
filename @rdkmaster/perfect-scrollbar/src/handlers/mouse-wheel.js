@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import * as CSS from '../lib/css';
 import cls from '../lib/class-names';
 import updateGeometry from '../update-geometry';

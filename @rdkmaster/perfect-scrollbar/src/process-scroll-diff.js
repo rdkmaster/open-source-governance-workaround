@@ -3,11 +3,11 @@ import { setScrollingClassInstantly } from './lib/class-names';
 function createEvent(name) {
   if (typeof window.CustomEvent === 'function') {
     return new CustomEvent(name);
-  } else {
-    const evt = document.createEvent('CustomEvent');
-    evt.initCustomEvent(name, false, false, undefined);
-    return evt;
   }
+
+  const evt = document.createEvent('CustomEvent');
+  evt.initCustomEvent(name, false, false, undefined);
+  return evt;
 }
 
 export default function(
